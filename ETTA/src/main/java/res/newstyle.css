@@ -1,0 +1,9 @@
+
+ .root {
+	-fx-base: lavender;
+}
+
+#myLine {
+	-fx-stroke: grey;
+	-fx-stroke-width: 1 px;
+}
