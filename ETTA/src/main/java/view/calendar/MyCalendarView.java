@@ -3,6 +3,7 @@ package view.calendar;
 import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;
 
+import com.calendarfx.view.AgendaView;
 import com.calendarfx.view.CalendarView;
 
 import controller.CalendarController;
@@ -43,5 +44,16 @@ public class MyCalendarView extends CalendarView{
 		calendarView.getCalendarSources().addAll(calendarController.getCalendarSource());
 		calendarController.getDefaultCalendarSource(calendarView);
 		return calendarView;
+	}
+	
+	public AgendaView getAgendaView() {
+		AgendaView agenda = new AgendaView();
+		agenda.getCalendarSources().addAll(calendarController.getCalendarSource());
+		calendarController.getDefaultCalendarSource(agenda);
+		agenda.setLookAheadPeriodInDays(0);
+		agenda.setMaxHeight(400);
+		agenda.setMaxWidth(500);
+		
+		return agenda;
 	}
 }

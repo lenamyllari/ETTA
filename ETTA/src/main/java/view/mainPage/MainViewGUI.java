@@ -43,7 +43,8 @@ public class MainViewGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		borderPane.setCenter(content);
+		borderPane.setTop(content);
+		borderPane.setCenter((new MyCalendarView().getAgendaView()));
 		return borderPane;
 	}
 	

@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainRootPane" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.mainPage.MainPageGUI">
+<AnchorPane fx:id="mainRootPane" prefHeight="350.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.mainPage.MainPageGUI">
    <children>
       <SplitPane dividerPositions="0.26737967914438504" orientation="VERTICAL" prefHeight="750.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -28,19 +28,7 @@
                   
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <TableView fx:id="eventTable" prefHeight="545.0" prefWidth="998.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="title" prefWidth="150.0" text="%event" />
-                      <TableColumn fx:id="location" prefWidth="150.0" text="%location" />
-                      <TableColumn fx:id="startDate" prefWidth="150.0" text="%date" />
-                      <TableColumn fx:id="startTime" prefWidth="150.0" text="%startTime" />
-                      <TableColumn fx:id="endTime" prefWidth="150.0" text="%endTime" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
+          
         </items>
       </SplitPane>
    </children>
