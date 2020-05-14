@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -272,13 +273,13 @@ public class EventDAO {
 	 * @param name the person's name whose birthday is in question
 	 * @return event the birthday in question
 	 */
-	public Event readBirthday(String name) {
+	public Event readBirthday(String name, Date birthday) {
 		Event event =null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
-			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
+			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays' and startDateString='" + birthday.toString() + "'").getResultList();
 			System.out.println("result " + result.toString());
 			try  {
 				event = result.get(0);

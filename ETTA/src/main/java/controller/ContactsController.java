@@ -69,7 +69,7 @@ public class ContactsController {
 		Boolean personCreate = perDAO.createPerson(person);
 		//if there's a birthday added to person details, create an yearly event 
 		if(personBirthday != null) {
-			//calendarController.createBirthday(personName, personBirthday);
+			calendarController.createBirthday(personName, personBirthday);
 		}
 	}
 	

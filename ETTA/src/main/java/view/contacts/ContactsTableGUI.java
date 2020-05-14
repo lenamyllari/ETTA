@@ -110,13 +110,19 @@ public class ContactsTableGUI {
 					public void handle(CellEditEvent<Person, String> t) {
 						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						String oldName = editedPerson.getName();
-						editedPerson.setName(t.getNewValue());
-						controller.updatePerson(editedPerson);
-						//updating birthday event
-						if(editedPerson.getBirthday()!=null) {
-							calendarController.updateBirthday(oldName, editedPerson.getName());
+						if(!inputCheck.isInputEmpty(t.getNewValue())){
+							editedPerson.setName(t.getNewValue());
+							controller.updatePerson(editedPerson);
+							//updating birthday event
+							if(editedPerson.getBirthday()!=null) {
+								calendarController.updateBirthday(oldName, editedPerson);
+							}
+							contactsTable.refresh();
 						}
-						contactsTable.refresh();
+						else {
+							inputCheck.alertInputEmpty();
+							contactsTable.refresh();
+						}
 					}});
   		
   		contactsBirthday.setCellFactory(dateCellFactory);

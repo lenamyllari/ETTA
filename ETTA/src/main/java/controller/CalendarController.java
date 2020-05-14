@@ -247,9 +247,9 @@ public class CalendarController {
 		 * @return true - if birthday event was successfully updated, false - if updating birthday event didn't succeed  
 		 */ 
 	 //update birthday event if name changes
-		public boolean updateBirthday(String oldName, String newName) {
-			Event birthdayEvent = eventDAO.readBirthday(oldName);
-			birthdayEvent.setTitle(newName);
+		public boolean updateBirthday(String oldName, Person person) {
+			Event birthdayEvent = eventDAO.readBirthday(oldName, person.getBirthday());
+			birthdayEvent.setTitle(person.getName());
 			return eventDAO.updateEvent(birthdayEvent);
 		}
 		
@@ -263,7 +263,7 @@ public class CalendarController {
 		 */ 
 		//update birthday event if date changes
 		public boolean updateBirthday(String name, Date oldDate, Date birthday) {
-			Event birthdayEvent = eventDAO.readBirthday(name);
+			Event birthdayEvent = eventDAO.readBirthday(name, oldDate);
 			//there was a birthday event already
 			if(birthdayEvent!=null) {
 				birthdayEvent.setStartDate(birthday);
