@@ -45,7 +45,7 @@ public class BalanceDAO {
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(balance);
 			transaction.commit();
@@ -65,7 +65,7 @@ public class BalanceDAO {
 	 */
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(balance);
 			transaction.commit();
@@ -84,7 +84,7 @@ public class BalanceDAO {
 	 */
 	public Balance readBalance(int balance_id) {
 		Balance balance = new Balance();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			balance = (Balance)session.get(Balance.class, balance_id);		
 			transaction.commit();

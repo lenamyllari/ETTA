@@ -14,7 +14,8 @@ public class Balance {
 	 * a unique integer for identifying the balance
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	@Column
 	private int id;
 	

@@ -51,7 +51,7 @@ public class CategoryDAO {
 	public boolean createCategory(Category category) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(category);
 			System.out.println("id " + category.getCategory_id());
@@ -73,7 +73,7 @@ public class CategoryDAO {
 		System.out.println("id in reading one " + id);
 		Category category = new Category();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			category = (Category)session.get(Category.class, id);		
 			transaction.commit();
@@ -95,7 +95,7 @@ public class CategoryDAO {
 		//System.out.println("id in reading one " + id);
 		Category category = new Category();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			List<Category>  result = session.createQuery( "from Category where description='" + description + "'" ).list();
 			if(result.size() !=0) {
@@ -123,7 +123,7 @@ public class CategoryDAO {
 	 */
 	public Category[] readExpenseCategories() {
 		ArrayList<Category> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			
 			List<Category> result = session.createQuery("from Category where income=false").getResultList();
@@ -146,7 +146,7 @@ public class CategoryDAO {
 	 */
 	public Category[] readIncomeCategories() {
 		ArrayList<Category> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			
 			List<Category> result = session.createQuery("from Category where income=true").getResultList();
@@ -170,7 +170,7 @@ public class CategoryDAO {
 	 */
 	public boolean updateCategory(Category category) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(category);
 			transaction.commit();
@@ -189,7 +189,7 @@ public class CategoryDAO {
 	 */
 	public boolean deleteCategory(int id) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			Category category = (Category)session.get(Category.class, id);
 			session.delete(category);

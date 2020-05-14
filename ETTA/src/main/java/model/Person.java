@@ -16,7 +16,8 @@ public class Person {
 	 * Unique identifying id number for each person
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	@Column
 	private int person_id;
 	

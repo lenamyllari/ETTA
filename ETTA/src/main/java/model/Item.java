@@ -18,7 +18,8 @@ public class Item {
 	 * Unique int for identifying the wishlist item
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	@Column
 	private int item_id;
 	

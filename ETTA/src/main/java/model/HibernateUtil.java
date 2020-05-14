@@ -1,5 +1,9 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -14,36 +18,21 @@ public class HibernateUtil {
 	 * SessionFactory object needed to open session with the database
 	 */
 	private static SessionFactory factory = null;
-	private static SessionFactory testFactory = null;
-	
+	static Connection conn = null;
+
 	/**
 	 * Method for creating (if it doesn't already exist) and getting the SessionFactory object
 	 * @param test boolean indicating whether a session factory is used for tests or not
 	 * @return SessionFactory 
 	 */
-	public static SessionFactory getSessionFactory(boolean test) {
-		if (test) {
-			if (testFactory == null) {
-				StandardServiceRegistry registry = null;
-				try {
-					// Create registry
-					registry = new StandardServiceRegistryBuilder().configure("hibernate-test.cfg.xml").build();
-					// Create SessionFactory
-					testFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-				} catch (Exception e) {
-					System.out.println("Creation of test session factory failed");
-					StandardServiceRegistryBuilder.destroy(registry);
-					e.printStackTrace();
-					System.exit(-1);
-				}
-			}
-			return testFactory;
-		} else {
+
+	public static SessionFactory getSessionFactory() {
+		
 			if (factory == null) {
 				StandardServiceRegistry registry = null;
 				try {
 					// Create registry
-					registry = new StandardServiceRegistryBuilder().configure().build();
+					registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 					// Create SessionFactory
 					factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 				} catch (Exception e) {
@@ -54,7 +43,15 @@ public class HibernateUtil {
 				}
 			}
 			return factory;	
-		}
+	}
+	
+	public static  Connection getConnection() throws ClassNotFoundException, SQLException {
+		
+		   Class.forName("org.sqlite.JDBC");
+		   conn = DriverManager.getConnection("jdbc:sqlite:mydb.db");
+		   
+		   System.out.println("База Подключена!");
+		   return conn;
 	}
         
 }

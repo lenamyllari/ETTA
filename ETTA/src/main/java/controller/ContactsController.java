@@ -65,10 +65,11 @@ public class ContactsController {
 		String personEmail = conGUI.getPersonEmail();
 		Date personBirthday = conGUI.getPersonBirthday();
 		Person person = new Person (personName, personBirthday, personEmail);
+		System.out.println(person.getName() + " " + person.getBirthday());
 		Boolean personCreate = perDAO.createPerson(person);
 		//if there's a birthday added to person details, create an yearly event 
 		if(personBirthday != null) {
-			calendarController.createBirthday(personName, personBirthday);
+			//calendarController.createBirthday(personName, personBirthday);
 		}
 	}
 	

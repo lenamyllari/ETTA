@@ -46,7 +46,7 @@ public class LanguageDAO {
 	public Language readLanguage(int language_id) {
 		Language language = new Language();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			language = (Language)session.get(Language.class, language_id);		
 			transaction.commit();
@@ -65,7 +65,7 @@ public class LanguageDAO {
 	public Language[] readLanguages() {
 		ArrayList<Language> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Language> result = session.createQuery("from Language").getResultList();
@@ -89,7 +89,7 @@ public class LanguageDAO {
 	public Language getSelectedLanguage() {
 		Language language = new Language();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			List<Language> result;
 			result = session.createQuery( "from Language l where l.chosen=true").getResultList();	
@@ -110,7 +110,7 @@ public class LanguageDAO {
 	 */
 	public boolean createLanguage(Language language) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(language);
 			transaction.commit();
@@ -129,7 +129,7 @@ public class LanguageDAO {
 	 */
 	public boolean updateLanguage(Language language) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(language);
 			transaction.commit();
@@ -149,7 +149,7 @@ public class LanguageDAO {
 	public Language readLanguage(String newLangName) {
 		Language language = new Language();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			List<Language> result;
 			result = session.createQuery( "from Language l where l.description='" + newLangName +"'").getResultList();	
@@ -169,7 +169,7 @@ public class LanguageDAO {
 	 */
 	public boolean deleteLanguage(Language language) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.delete(language);
 			transaction.commit();

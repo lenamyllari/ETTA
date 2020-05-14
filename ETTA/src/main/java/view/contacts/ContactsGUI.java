@@ -113,7 +113,7 @@ public class ContactsGUI {
 		}
 		else {
 			//check if a person with this name exists already, creating of people with the same name is not supported
-			if(!controller.checkIfPersonexists(getPersonName())) {
+			//if(!controller.checkIfPersonexists(getPersonName())) {
 				//ContactsController saves the new person
 				controller.savePerson();
 				AnchorPane contactsView = null; 
@@ -126,10 +126,10 @@ public class ContactsGUI {
 				}
 				contactsaddanchorpane.getChildren().setAll(contactsView);
 			}
-			else {
+			/*else {
 				inputCheck.alertPersonExists();
-			}
-		}
+			}*/
+		//}
 	}
 	
 	/**

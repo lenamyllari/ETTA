@@ -17,27 +17,12 @@ public class BorrowedThingDAO {
 	private Transaction transaction = null;
 	
 	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	private boolean test = false;
-	
-	/**
 	 * Construction without parameters
 	 */
 	public BorrowedThingDAO() {
 		
 	}
 	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public BorrowedThingDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
-	}
 	
 	/**
 	 * Method for creating a new BorrowedThing item in the database
@@ -46,7 +31,7 @@ public class BorrowedThingDAO {
 	 */
 	public boolean createBorrowedThing(BorrowedThing borrowedThing) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(borrowedThing);
 			transaction.commit();
@@ -68,7 +53,7 @@ public class BorrowedThingDAO {
 	public BorrowedThing readBorrowedThing(int thing_id) {
 		BorrowedThing borrowedThing = new BorrowedThing();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			borrowedThing = (BorrowedThing)session.get(BorrowedThing.class, thing_id);		
 			transaction.commit();
@@ -87,7 +72,7 @@ public class BorrowedThingDAO {
 	 */
 	public BorrowedThing[] readBorrowedThings() {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<BorrowedThing> result = session.createQuery("from BorrowedThing").getResultList();
@@ -113,7 +98,7 @@ public class BorrowedThingDAO {
 	public boolean updateBorrowedThing(BorrowedThing borrowedThing) {
 	
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(borrowedThing);
 			transaction.commit();
@@ -133,7 +118,7 @@ public class BorrowedThingDAO {
 	 */
 	public boolean deleteBorrowedThing(int thing_id) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			BorrowedThing borrowedThing = (BorrowedThing)session.get(BorrowedThing.class, thing_id);
 			session.delete(borrowedThing);
@@ -153,7 +138,7 @@ public class BorrowedThingDAO {
 	 */
 	public BorrowedThing [] readBorrowedThingsByPerson(int person_id) {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<BorrowedThing> result = session.createQuery("from BorrowedThing where person=" + person_id).getResultList();

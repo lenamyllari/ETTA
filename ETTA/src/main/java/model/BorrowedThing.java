@@ -15,7 +15,8 @@ public class BorrowedThing {
 	 * a unique integer for identifying the specific borrowed item
 	 */
 	@Id
-	@GeneratedValue
+	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	@Column(name="thing_id") 
 	private int thing_id;
 	

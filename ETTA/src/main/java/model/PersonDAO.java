@@ -1,18 +1,24 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 /**
  * Data access object class for Persons. Used in accessing the table in the database.
  */
+
 public class PersonDAO {
 	
 	/**
@@ -20,12 +26,7 @@ public class PersonDAO {
 	 */
 	private Transaction transaction = null;
 	
-	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	private boolean test = false;
-	
+	public static Statement statmt;
 	/**
 	 * Construction without parameters
 	 */
@@ -33,36 +34,51 @@ public class PersonDAO {
 		
 	}
 	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public PersonDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
-	}
-	
 	 /**
 	 * Method for creating a new Person in the database
 	 * @param person Person to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
+
 	public boolean createPerson(Person person) {
+		/*try {
+			Connection db = DriverManager.getConnection("jdbc:sqlite:mydb.db");
+			statmt = db.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//INSERT INTO people (name, birthday, email) VALUES
+		
+		
+		try {
+			statmt.execute("INSERT INTO Person (name, birthday, email) VALUES ('" + person.getName() + "', '" + 
+		person.getEmail() +"', " + person.getBirthday() + "); ");
+			success = true;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			
 			System.out.println(session);
 			transaction = session.beginTransaction();
+			System.out.println("creating: 56");
 			session.saveOrUpdate(person);
+			System.out.println("creating: 58");
 			transaction.commit();
+			System.out.println("creating: 60");
 			success = true;
 			System.out.println("creating: " + person.getPerson_id());
 			System.out.println("creating: " + person.getName());
 			System.out.println("creating: " + person.getBirthday());
+			//session.close();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
+
 		return success;
 	}
 	
@@ -74,7 +90,7 @@ public class PersonDAO {
 	public Person readPerson(int person_id) {
 		Person person = new Person();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			person = (Person)session.get(Person.class, person_id);		
 			transaction.commit();
@@ -93,9 +109,10 @@ public class PersonDAO {
 	 * @return person Person read from the database
 	 */
 	public Person readPerson(String name) {
+		System.out.println("trying to read one");
 		Person person = new Person();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			List<Person>  result = session.createQuery( "from Person where name='" + name + "'" ).list();
 			if (result.size() != 0) {
@@ -120,15 +137,18 @@ public class PersonDAO {
 	 */
 	public Person[] readPeople() {
 		ArrayList<Person> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Person> result = session.createQuery("from Person").getResultList();
+			System.out.println("result " + result);
 			for(Person person : result) {
 				list.add(person);
+				System.out.println(person.getBirthday());
 				System.out.println("reading all: " + person.getName());
 			}
 			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
@@ -144,7 +164,7 @@ public class PersonDAO {
 	 */
 	public boolean updatePerson(Person person) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(person);
 			transaction.commit();
@@ -164,11 +184,12 @@ public class PersonDAO {
 	public boolean deletePerson(int person_id) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Person person = (Person)session.get(Person.class, person_id);
 			session.delete(person);
 			transaction.commit();
+			session.close();
 			success = true;
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();

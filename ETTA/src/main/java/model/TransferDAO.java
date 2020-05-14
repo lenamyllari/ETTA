@@ -48,7 +48,7 @@ public class TransferDAO {
 	 */
 	public boolean createTransfer(Transfer transfer) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(transfer);
 			transaction.commit();
@@ -70,7 +70,7 @@ public class TransferDAO {
 	public Transfer readTransfer(int transfer_id) {
 		Transfer transfer = new Transfer();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			transfer = (Transfer)session.get(Transfer.class, transfer_id);		
 			transaction.commit();
@@ -92,10 +92,10 @@ public class TransferDAO {
 	public Transfer[] readSeletedTransfers(Date dateStart, Date dateEnd) {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Transfer> result = session.createQuery("from Transfer where date between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
+			List<Transfer> result = session.createQuery("from Transfer where date(date) between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
 				System.out.println("reading selected: " + transfer.getDescription());
@@ -118,13 +118,13 @@ public class TransferDAO {
 	public Transfer[] readTransfers() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDescription());
+				System.out.println("reading all: " + transfer.getDate());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -142,13 +142,13 @@ public class TransferDAO {
 	public Transfer[] readExpenses() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer where income=false order by date desc").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDescription());
+				System.out.println("reading all: " + transfer.getDate());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -166,13 +166,13 @@ public class TransferDAO {
 	public Transfer[] readIncome() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer where income=true order by date desc").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDescription());
+				System.out.println("reading all: " + transfer.getDate());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -191,7 +191,7 @@ public class TransferDAO {
 	public boolean updateTransfer(Transfer transfer) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.update(transfer);
 			transaction.commit();
@@ -211,7 +211,7 @@ public class TransferDAO {
 	public boolean deleteTransfer(int transfer_id) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Transfer transfer = (Transfer)session.get(Transfer.class, transfer_id);
 			session.delete(transfer);

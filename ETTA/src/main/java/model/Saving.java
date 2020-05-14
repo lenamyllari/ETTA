@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +21,8 @@ public class Saving {
 	 * a unique integer for the ID of the specificsaving
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	@Column(name="saving_id")
 	private int saving_id;
 	

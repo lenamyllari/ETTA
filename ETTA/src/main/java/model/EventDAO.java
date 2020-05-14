@@ -48,7 +48,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event order by event_id" ).list();
 			session.getTransaction().commit();
@@ -73,10 +73,10 @@ public class EventDAO {
 		Transaction transaction = null;
 		Event event = new Event();
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			event = (Event)session.get(Event.class, event_id);	
-			
+			System.out.println("event date " + event.getStartDate());
 			transaction.commit();
 			if(event == null) {
 				return null;
@@ -103,7 +103,7 @@ public class EventDAO {
 		Transaction transaction = null;
 
 		try{
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(event);
 			transaction.commit();
@@ -127,7 +127,7 @@ public class EventDAO {
 	public boolean updateEvent(Event event) {
 		boolean updated =false;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
@@ -152,7 +152,7 @@ public class EventDAO {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
 			Event e = (Event)session.get(Event.class, event_id);
@@ -184,7 +184,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			if (test) {
 				result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
@@ -213,10 +213,12 @@ public class EventDAO {
 		Transaction transaction = null;
 		List<Event> result;
 		Event[] returnArray;
+	
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where startDate=current_date()").list();
+			result = session.createQuery( "from Event where date(startDate) = '2020-05-14'").list();
+			//where startDate=current_date()
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
 		}
@@ -238,7 +240,7 @@ public class EventDAO {
 	public boolean deleteBirthday(String name) {
 		boolean deleted = false;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
@@ -273,7 +275,7 @@ public class EventDAO {
 	public Event readBirthday(String name) {
 		Event event =null;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
@@ -305,7 +307,7 @@ public class EventDAO {
 	public Event readBorrowed(String description) {
 		Event event =null;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + description + "' and calendar='borrowed'").getResultList();
@@ -337,7 +339,7 @@ public class EventDAO {
 	public Event readWishlistEvent(String oldEvent) {
 		Event event =null;
 		try {
-			session = HibernateUtil.getSessionFactory(test).openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + oldEvent + "' and calendar='wishlist'").getResultList();

@@ -63,13 +63,34 @@
 			<version>5.6.0</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.10.Final</version>
 		</dependency>
 
+<!-- SQLite JDBC library -->
+       <dependency>
+    <groupId>org.xerial</groupId>
+    <artifactId>sqlite-jdbc</artifactId>
+    <version>3.20.1</version>
+    <scope>test</scope>
+</dependency>
+
+       <dependency>
+
+			<groupId>org.xerial</groupId>
+
+			<artifactId>sqlite-jdbc</artifactId>
+
+			<version>3.8.11.1</version>
+
+		</dependency>
+<dependency>
+  <groupId>com.enigmabridge</groupId>
+  <artifactId>hibernate4-sqlite-dialect</artifactId>
+  <version>0.1.2</version>
+</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
