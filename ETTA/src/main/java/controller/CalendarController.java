@@ -9,6 +9,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
+import com.calendarfx.view.AgendaView;
 import com.calendarfx.view.CalendarView;
 
 import javafx.collections.ObservableList;
@@ -32,15 +33,6 @@ public class CalendarController {
 	 * EventDAO used for accessing the database
 	 */
 	private EventDAO eventDAO = new EventDAO();
-	
-	//used for tests
-	/**
-	 * Constructor to create controller for Calendar, used in tests
-	 * @param eventDAO EventDAO 
-	 */
-	public CalendarController(EventDAO eventDAO2) {
-		this.eventDAO = eventDAO2;
-	}
 
 	/**
 	 * Constructor to create controller for Calendar without parameters
@@ -89,7 +81,7 @@ public class CalendarController {
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 		for(Calendar calendar : calendars) {
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'", false);
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
 			for (Event event : events) {
 				Entry entry = fromEventToEntry(event);
 				calendar.addEntry(entry);
@@ -204,7 +196,27 @@ public class CalendarController {
 	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
 	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 	        defaultCalendar.addEventHandler(handler);
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'", false);
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+			for (Event event2 : events) {
+				Entry entry = fromEventToEntry(event2);
+				entry.setCalendar(defaultCalendar);
+				defaultCalendar.addEntry(entry);
+			}
+			
+		 return calendarSource;
+	 }
+	 
+		/** 
+		 * Method that returns default CalendarsSource with the default calendar
+		 * @param calendarView - the calendarView for which the default calendarSource is for
+		 * @return calendarSource - calendaresSource with the events from the default calendar 
+		 */
+	 public CalendarSource getDefaultCalendarSource(AgendaView agendaView) {
+		 CalendarSource calendarSource = agendaView.getCalendarSources().get(0);
+	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
+	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+	        defaultCalendar.addEventHandler(handler);
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
 			for (Event event2 : events) {
 				Entry entry = fromEventToEntry(event2);
 				entry.setCalendar(defaultCalendar);

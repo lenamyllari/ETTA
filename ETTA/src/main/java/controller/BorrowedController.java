@@ -83,19 +83,6 @@ public class BorrowedController {
 	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
 		this.returnedGUI = returnedGUI;
 	}
-	
-	//constructor used for tests
-	/**
-	 * Constructor to create controller for BorrowedThings for testing
-	 *@param personDAO2 used for accessing the database
-	 *@param borrowedThingDAO2 used for accessing the database
-	 *@param eventDAO2 used for accessing the database
-	 */
-	public BorrowedController(PersonDAO personDAO2, BorrowedThingDAO borrowedThingDAO2, EventDAO eventDAO2) {
-		this.personDAO = personDAO2;
-		this.borrowedThingDAO = borrowedThingDAO2;
-		this.eventDAO = eventDAO2;
-	}
 
 	/** 
 	 * Method that gets Persons from PersonDAO and makes a list containing names only 

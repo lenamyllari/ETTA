@@ -21,26 +21,10 @@ public class CategoryDAO {
 	private Transaction transaction = null;
 	
 	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	private boolean test = false;
-	
-	/**
 	 * Construction without parameters
 	 */
 	public CategoryDAO() {
 		
-	}
-	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public CategoryDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
 	}
 	
 	/**
@@ -107,8 +91,6 @@ public class CategoryDAO {
 			else {
 				category = null;
 			}
-					
-			
 		}
 		catch(Exception e){
 			if (transaction!= null) transaction.rollback();
@@ -125,7 +107,6 @@ public class CategoryDAO {
 		ArrayList<Category> list = new ArrayList<>();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			
 			List<Category> result = session.createQuery("from Category where income=false").getResultList();
 			for(Category category : result) {
 				list.add(category);
@@ -148,7 +129,6 @@ public class CategoryDAO {
 		ArrayList<Category> list = new ArrayList<>();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			
 			List<Category> result = session.createQuery("from Category where income=true").getResultList();
 			for(Category category : result) {
 				list.add(category);

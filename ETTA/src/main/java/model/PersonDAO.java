@@ -41,44 +41,17 @@ public class PersonDAO {
 	 */
 
 	public boolean createPerson(Person person) {
-		/*try {
-			Connection db = DriverManager.getConnection("jdbc:sqlite:mydb.db");
-			statmt = db.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//INSERT INTO people (name, birthday, email) VALUES
-		
-		
-		try {
-			statmt.execute("INSERT INTO Person (name, birthday, email) VALUES ('" + person.getName() + "', '" + 
-		person.getEmail() +"', " + person.getBirthday() + "); ");
-			success = true;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
 			System.out.println(session);
 			transaction = session.beginTransaction();
-			System.out.println("creating: 56");
 			session.saveOrUpdate(person);
-			System.out.println("creating: 58");
 			transaction.commit();
-			System.out.println("creating: 60");
 			success = true;
-			System.out.println("creating: " + person.getPerson_id());
-			System.out.println("creating: " + person.getName());
-			System.out.println("creating: " + person.getBirthday());
-			//session.close();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
-
 		return success;
 	}
 	

@@ -15,26 +15,10 @@ public class BalanceDAO {
 	private Transaction transaction = null;
 	
 	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	private boolean test = false;
-	
-	/**
 	 * Construction without parameters
 	 */
 	public BalanceDAO() {
 		
-	}
-	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public BalanceDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
 	}
 	
 	/** 

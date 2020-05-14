@@ -93,35 +93,6 @@ public class EconomyController {
 	public EconomyController(EconomySavingsGUI economySavingsGUI) {
 		this.economySavingGUI = economySavingsGUI;
 	}
-
-	//constructor used for tests
-	/** 
-	 * Constructor 
-	 * @param categoryDAO2
-	 * @param transferDAO 
-	 */ 
-	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO) {
-		this.categoryDAO = categoryDAO2;
-		this.transDAO = transferDAO; 
-	}
-
-	//constructor used for tests
-	/** 
-	 * Constructor 
-	 * @param balanceDAO2 
-	 */ 
-	public EconomyController(BalanceDAO balanceDAO2) {
-		this.balanceDao = balanceDAO2;
-	}
-
-	//constructor used for tests
-	/** 
-	 * Constructor 
-	 * @param savingDAO2
-	 */ 
-	public EconomyController(SavingDAO savingDAO2) {
-		this.savingDAO = savingDAO2;
-	}
 	
 	/**
 	 * 

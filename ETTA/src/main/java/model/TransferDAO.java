@@ -19,26 +19,10 @@ public class TransferDAO {
 	Transaction transaction = null;
 	
 	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	boolean test = false;
-	
-	/**
 	 * Construction without parameters
 	 */
 	public TransferDAO() {
 		
-	}
-	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public TransferDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
 	}
 	
 	/**

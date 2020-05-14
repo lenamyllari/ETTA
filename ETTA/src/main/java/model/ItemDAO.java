@@ -19,28 +19,12 @@ public class ItemDAO {
 	 * Transaction object to carry out database transactions
 	 */
 	private Transaction transaction = null;
-	
-	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	private boolean test = false;
-	
+
 	/**
 	 * Construction without parameters
 	 */
 	public ItemDAO() {
 		
-	}
-	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public ItemDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
 	}
 	
 	/**

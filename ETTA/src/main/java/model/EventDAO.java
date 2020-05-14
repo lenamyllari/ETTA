@@ -18,26 +18,10 @@ public class EventDAO {
 	Transaction transaction = null;
 	
 	/**
-	 * Boolean indicating whether the DAO should connect to the test database or not
-	 * Default value false
-	 */
-	boolean test = false;
-	
-	/**
 	 * Construction without parameters
 	 */
 	public EventDAO() {
 		
-	}
-	
-	/**
-	 * Constructor
-	 * @param test boolean indicating whether the DAO is used for testing or not
-	 */
-	public EventDAO(boolean test) {
-		if (test) {
-			this.test = true;
-		}
 	}
 	
 	/**
@@ -76,10 +60,12 @@ public class EventDAO {
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
+			try {
 			event = (Event)session.get(Event.class, event_id);	
 			System.out.println("event date " + event.getStartDate());
 			transaction.commit();
-			if(event == null) {
+			}
+			catch(NullPointerException e) {
 				return null;
 			}
 		}
@@ -181,17 +167,13 @@ public class EventDAO {
 	 * method for reading events only belonging to the calendar received as parameter from the database
 	 * @return Event[]  list of  event objects read from the database
 	 */
-	public Event[] readEventsFromOneCalendar(String calendar, boolean test) {
+	public Event[] readEventsFromOneCalendar(String calendar) {
 		List<Event> result;
 		Event[] returnArray;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			if (test) {
-				result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
-			} else {
-				result = session.createQuery( "from Event where calendar="+ calendar).list();
-			}
+			result = session.createQuery( "from Event where calendar="+ calendar).list();
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
 		}
