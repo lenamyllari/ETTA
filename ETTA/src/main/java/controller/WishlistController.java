@@ -201,6 +201,7 @@ public class WishlistController {
 		System.out.println(event);
 		if (event != null) {
 			event.setStartDate(editedItem.getDateNeeded());
+			event.setStartDateString(editedItem.getDateNeeded().toString());
 			event.setEndDate(editedItem.getDateNeeded());
 			event.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
 			eventDAO.updateEvent(event);

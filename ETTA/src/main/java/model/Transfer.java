@@ -53,6 +53,20 @@ public class Transfer {
 	private Date date;
 	
 	/**
+	 * the date of the transfer
+	 */
+	@Column (name="dateString")
+	private String dateString;
+	
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+
+	/**
 	 * the amount of the transfer
 	 */
 	@Column(name="amount")

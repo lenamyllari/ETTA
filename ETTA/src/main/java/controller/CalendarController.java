@@ -178,6 +178,7 @@ public class CalendarController {
 		event.setLocation(entry.getLocation());
 		event.setEndDate(endDate);
 		event.setStartDate(startDate);
+		event.setStartDateString(startDate.toString());
 		event.setEndTime(endTime);
 		event.setStartTime(startTime);
 		event.setFullday(entry.isFullDay());
@@ -229,6 +230,7 @@ public class CalendarController {
 			birthdayEvent.setEvent_id(getNextId());
 			birthdayEvent.setCalendar("birthdays");
 			birthdayEvent.setStartDate(birthday);
+			birthdayEvent.setStartDateString(birthday.toString());
 			birthdayEvent.setEndDate(birthday);
 			//birthday events are always fullday
 			birthdayEvent.setFullday(true);
@@ -265,6 +267,7 @@ public class CalendarController {
 			//there was a birthday event already
 			if(birthdayEvent!=null) {
 				birthdayEvent.setStartDate(birthday);
+				birthdayEvent.setStartDateString(birthday.toString());
 				birthdayEvent.setEndDate(birthday);
 				return eventDAO.updateEvent(birthdayEvent);
 			}
@@ -284,6 +287,7 @@ public class CalendarController {
 			Event wishlistEvent = new Event();
 			wishlistEvent.setEvent_id(getNextId());
 			wishlistEvent.setStartDate(item.getDateNeeded());
+			wishlistEvent.setStartDateString(item.getDateNeeded().toString());
 			wishlistEvent.setEndDate(item.getDateNeeded());
 			//wishlist events are always full day events
 			wishlistEvent.setFullday(true);
@@ -370,6 +374,7 @@ public class CalendarController {
 			Event wishlistEvent = eventDAO.readWishlistEvent(event);
 			if (wishlistEvent != null) {
 				wishlistEvent.setStartDate(editedItem.getDateNeeded());
+				wishlistEvent.setStartDateString(editedItem.getDateNeeded().toString());
 				wishlistEvent.setEndDate(editedItem.getDateNeeded());
 				updated = eventDAO.updateEvent(wishlistEvent);
 			}
@@ -414,6 +419,7 @@ public class CalendarController {
 			borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
 			borrowed.setLocation(null);
 			borrowed.setStartDate(borrowedThing.getReturnDate());
+			borrowed.setStartDateString(borrowedThing.getReturnDate().toString());
 			borrowed.setEndDate(borrowedThing.getReturnDate());
 			borrowed.setFullday(true);
 			borrowed.setRecurring(false);
@@ -435,6 +441,7 @@ public class CalendarController {
 			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
 			if(borrowedEvent != null) {
 				borrowedEvent.setStartDate(thing.getReturnDate());
+				borrowedEvent.setStartDateString(thing.getReturnDate().toString());
 				borrowedEvent.setEndDate(thing.getReturnDate());
 				updated = eventDAO.updateEvent(borrowedEvent);
 			}

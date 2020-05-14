@@ -95,7 +95,7 @@ public class TransferDAO {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Transfer> result = session.createQuery("from Transfer where date(date) between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
+			List<Transfer> result = session.createQuery("from Transfer where date(dateString) between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
 				System.out.println("reading selected: " + transfer.getDescription());
@@ -124,7 +124,7 @@ public class TransferDAO {
 			List<Transfer> result = session.createQuery("from Transfer").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDate());
+				System.out.println("reading all: " + transfer.getDateString());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -148,7 +148,7 @@ public class TransferDAO {
 			List<Transfer> result = session.createQuery("from Transfer where income=false order by date desc").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDate());
+				System.out.println("reading all: " + transfer.getDateString());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -172,7 +172,7 @@ public class TransferDAO {
 			List<Transfer> result = session.createQuery("from Transfer where income=true order by date desc").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDate());
+				System.out.println("reading all: " + transfer.getDateString());
 			}
 			transaction.commit();
 		} catch (Exception e) {

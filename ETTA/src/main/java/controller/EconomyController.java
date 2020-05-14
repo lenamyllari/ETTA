@@ -219,6 +219,7 @@ public class EconomyController {
 		transfer.setCategory(category);
 		transfer.setDescription(gui.getDescription());
 		transfer.setDate(gui.getTransferDate());
+		transfer.setDateString(gui.getTransferDate().toString());
 		transDAO.createTransfer(transfer);
 		//change the balance with transfer's amount
 		updateBalanceAmount(transfer.getAmount());

@@ -46,6 +46,20 @@ public class Event {
 	private Date startDate;
 
 	/**
+	 * start Date of the event in String
+	 */
+	@Column(name="startDateString")
+	private String startDateString;
+	
+	public String getStartDateString() {
+		return startDateString;
+	}
+
+	public void setStartDateString(String startDateString) {
+		this.startDateString = startDateString;
+	}
+
+	/**
 	 * end Date of the event
 	 */
 	@Column(name="endDate")

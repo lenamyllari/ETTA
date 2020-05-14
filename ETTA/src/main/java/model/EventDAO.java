@@ -217,7 +217,7 @@ public class EventDAO {
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where date(startDate) = '2020-05-14'").list();
+			result = session.createQuery( "from Event where date(startDateString) = date('now')").list();
 			//where startDate=current_date()
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
